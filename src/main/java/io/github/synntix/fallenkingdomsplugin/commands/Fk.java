@@ -35,7 +35,7 @@ public class Fk implements CommandExecutor {
                     for (FKTeam fkTeamKey : FKTeam.values()) {
                         ArrayList<FKBase> enemyBasesPerKey = new ArrayList<>();
                         for (FKTeam fkTeam : FKTeam.values()) {
-                            if (fkTeam.isEnabled() && fkTeam != fkTeamKey) {
+                            if (fkTeam.isEnabled() && fkTeam != fkTeamKey && fkTeam != FKTeam.NOTEAM) {
                                 enemyBasesPerKey.add(fkTeam.getBase());
                             }
                         }

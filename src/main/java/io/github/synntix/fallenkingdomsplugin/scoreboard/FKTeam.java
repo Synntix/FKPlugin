@@ -6,23 +6,23 @@ import org.bukkit.scoreboard.Team;
 
 public enum FKTeam {
 
-    NOTEAM("No Team", ChatColor.WHITE, 0),
-    WHITE("White", ChatColor.WHITE, 0),
-    ORANGE("Orange", ChatColor.RED, 1),
-    PURPLE("Purple", ChatColor.DARK_PURPLE, 2),
-    BLUE("Blue", ChatColor.BLUE, 3),
-    YELLOW("Yellow", ChatColor.YELLOW, 4),
-    GREEN("Green", ChatColor.GREEN, 5),
-    PINK("Pink", ChatColor.LIGHT_PURPLE, 6),
-    DARK_GRAY("Dark Gray", ChatColor.DARK_GRAY, 7),
-    GRAY("Gray", ChatColor.GRAY, 8),
-    AQUA("Aqua", ChatColor.AQUA, 9),
-    GOLD("Gold", ChatColor.GOLD, 10),
-    DARK_BLUE("Dark Blue", ChatColor.DARK_BLUE, 11),
-    DARK_AQUA("Dark aqua", ChatColor.DARK_AQUA, 12),
-    DARK_GREEN("Dark Green", ChatColor.DARK_GREEN, 13),
-    RED("Red", ChatColor.DARK_RED, 14),
-    BLACK("Black", ChatColor.BLACK, 15);
+    NOTEAM("No Team", ChatColor.WHITE, 0,true),
+    WHITE("White", ChatColor.WHITE, 0,false),
+    ORANGE("Orange", ChatColor.RED, 1,false),
+    PURPLE("Purple", ChatColor.DARK_PURPLE, 2,false),
+    BLUE("Blue", ChatColor.BLUE, 3,false),
+    YELLOW("Yellow", ChatColor.YELLOW, 4,false),
+    GREEN("Green", ChatColor.GREEN, 5,false),
+    PINK("Pink", ChatColor.LIGHT_PURPLE, 6,false),
+    DARK_GRAY("Dark Gray", ChatColor.DARK_GRAY, 7,false),
+    GRAY("Gray", ChatColor.GRAY, 8,false),
+    AQUA("Aqua", ChatColor.AQUA, 9,false),
+    GOLD("Gold", ChatColor.GOLD, 10,false),
+    DARK_BLUE("Dark Blue", ChatColor.DARK_BLUE, 11,false),
+    DARK_AQUA("Dark aqua", ChatColor.DARK_AQUA, 12,false),
+    DARK_GREEN("Dark Green", ChatColor.DARK_GREEN, 13,false),
+    RED("Red", ChatColor.DARK_RED, 14,false),
+    BLACK("Black", ChatColor.BLACK, 15,false);
 
     private String name;
     private ChatColor color;
@@ -31,11 +31,11 @@ public enum FKTeam {
     private FKBase base;
 
 
-    FKTeam(String name, ChatColor color, int woolID) {
+    FKTeam(String name, ChatColor color, int woolID, boolean enabled) {
         this.name = name;
         this.color = color;
         this.woolID = woolID;
-        this.enabled = false;
+        this.enabled = enabled;
         this.base = null;
     }
 
