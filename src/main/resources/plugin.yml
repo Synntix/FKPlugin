@@ -1,0 +1,9 @@
+name: FallenKingdomsPlugin
+version: ${project.version}
+main: io.github.synntix.fallenkingdomsplugin.FallenKingdomsPlugin
+api-version: 1.13
+authors: [Synntix]
+description: A Fallen Kingdoms plugin for Minecraft 1.15.2
+commands:
+  fk:
+    description: Manage game, do /fk help for more info
