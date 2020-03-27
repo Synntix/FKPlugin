@@ -166,7 +166,7 @@ public class Fk implements CommandExecutor {
                     } else if (args[1].equalsIgnoreCase("add")) {
                         //If the number of args doesn't fit
                         if (args.length != 4) {
-                            player.sendMessage("Wrong input.");
+                            player.sendMessage(ChatColor.RED + "ERROR : Wrong input.");
                             player.sendMessage("To add a player to a team please do " + ChatColor.RED
                                     + "/fk teams add <PSEUDO> <COLOR>");
                         } else {
