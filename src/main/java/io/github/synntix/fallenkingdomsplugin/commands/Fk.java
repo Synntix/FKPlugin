@@ -96,7 +96,7 @@ public class Fk implements CommandExecutor {
                     } else if (args[1].equalsIgnoreCase("create")) {
                         //If the number of args doesn't fit
                         if (args.length != 3) {
-                            player.sendMessage("Wrong input.");
+                            player.sendMessage(ChatColor.RED + "ERROR : Wrong input.");
                             player.sendMessage("To create a team please do " + ChatColor.RED + "/fk teams create <COLOR>");
                         } else {
                             try {
@@ -112,8 +112,9 @@ public class Fk implements CommandExecutor {
                         }
                         // ----------------- /fk teams list ----------------
                     } else if (args[1].equalsIgnoreCase("list")) {
-                        if (args.length > 2) {
-                            player.sendMessage("Too many parameters, only two have been take into account");
+                        if (args.length != 2) {
+                            player.sendMessage(ChatColor.RED + "ERROR : Wrong input.");
+                            player.sendMessage("To list created teams please do " + ChatColor.RED + "/fk teams list");
                         } else {
                             player.sendMessage("These are the created teams :");
                             for (FKTeam fkTeam : FKTeam.values()) {
@@ -135,16 +136,26 @@ public class Fk implements CommandExecutor {
                             if (FKTeam.getByColorName(args[3]).isEnabled()) {
                                 // TODO : Gérer la saisie d'un pseudo non connecté
 
-                                FallenKingdomsPlugin.getFkPlayers().get(Bukkit.getPlayerExact(args[2]))
-                                        .setTeam(FKTeam.getByColorName(args[3]));
-                                player.sendMessage(args[2] + " has been added to the "
-                                        + FKTeam.getByColorName(args[3]).getColor()
-                                        + FKTeam.getByColorName(args[3]).getName()
-                                        + ChatColor.WHITE + " team.");
+                        } else { //If the number of args does fit
+                            if (FKTeam.getByColorName(args[3]).isEnabled()) { // If the team has been created before
+
+                                try {
+                                    // If the pseudo is correct
+                                    FallenKingdomsPlugin.getFkPlayers().get(Bukkit.getPlayerExact(args[2]))
+                                            .setTeam(FKTeam.getByColorName(args[3]));
+                                    player.sendMessage(args[2] + " has been added to the "
+                                            + FKTeam.getByColorName(args[3]).getColor()
+                                            + FKTeam.getByColorName(args[3]).getName()
+                                            + ChatColor.WHITE + " team.");
+                                } catch (java.lang.NullPointerException e) {
+                                    // If the pseudo is not correct
+                                    player.sendMessage(ChatColor.RED + "ERROR : player not found.");
+                                }
+
                             } else {
-                                player.sendMessage("The " + FKTeam.getByColorName(args[3]).getColor()
+                                player.sendMessage(ChatColor.RED + "ERROR : The "
                                         + FKTeam.getByColorName(args[3]).getName()
-                                        + ChatColor.WHITE + " team was not created, please create it.");
+                                        + " team was not created, please create it.");
                             }
 
                         }
@@ -164,13 +175,13 @@ public class Fk implements CommandExecutor {
                         // ----------------- /fk base set ----------------
                     } else if (args[1].equalsIgnoreCase("set")) {
                         if (args.length != 4) {
-                            player.sendMessage("Wrong input.");
+                            player.sendMessage(ChatColor.RED + "ERROR : Wrong input.");
                             player.sendMessage("To set a base please do " + ChatColor.RED + "/fk base set <COLOR> <RADIUS>");
                         } else {
                             if (!FKTeam.getByColorName(args[2]).isEnabled()) {
-                                player.sendMessage("The " + FKTeam.getByColorName(args[2]).getColor()
-                                        + FKTeam.getByColorName(args[2]).getName()
-                                        + ChatColor.WHITE + " team was not created, please create it.");
+                                player.sendMessage(ChatColor.RED + "ERROR : The "
+                                        + FKTeam.getByColorName(args[3]).getName()
+                                        + " team was not created, please create it.");
                             } else {
                                 FKTeam.getByColorName(args[2]).setBase(new FKBase(FKTeam.getByColorName(args[2]),
                                         player.getLocation(),
