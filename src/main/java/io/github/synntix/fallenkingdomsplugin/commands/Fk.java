@@ -42,6 +42,9 @@ public class Fk implements CommandExecutor {
                         FallenKingdomsPlugin.getEnemyBases().put(fkTeamKey,enemyBasesPerKey);
                     }
 
+                    //TODO : prevent from launching if a created team doesn't have a base
+                    // (otherwise isInThatBase check excepts)
+
                     for (FKPlayer fkPlayer : FallenKingdomsPlugin.getFkPlayerList()) {
                         for (FKBase fkEnemyBase : FallenKingdomsPlugin.getEnemyBases().get(fkPlayer.getTeam())) {
                             fkPlayer.isInThatBase().put(fkEnemyBase,false);
@@ -169,9 +172,6 @@ public class Fk implements CommandExecutor {
                             player.sendMessage(ChatColor.RED + "ERROR : Wrong input.");
                             player.sendMessage("To add a player to a team please do " + ChatColor.RED
                                     + "/fk teams add <PSEUDO> <COLOR>");
-                        } else {
-                            if (FKTeam.getByColorName(args[3]).isEnabled()) {
-                                // TODO : Gérer la saisie d'un pseudo non connecté
 
                         } else { //If the number of args does fit
                             if (FKTeam.getByColorName(args[3]).isEnabled()) { // If the team has been created before
@@ -258,7 +258,7 @@ public class Fk implements CommandExecutor {
                                         + FKTeam.getByColorName(args[2]).getName() + ChatColor.WHITE + " base have been created.");
                             }
                         }
-                    }
+                    } // TODO : /fk base delete
                 }
 
             } else {

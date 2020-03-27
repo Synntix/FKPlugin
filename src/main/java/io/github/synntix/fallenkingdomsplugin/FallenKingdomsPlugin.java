@@ -34,6 +34,7 @@ public final class FallenKingdomsPlugin extends JavaPlugin {
         //Commands and Events setup
         getServer().getPluginManager().registerEvents(new Listeners(),this);
         getCommand("fk").setExecutor(new Fk());
+        //TODO : Create scoreboard
         System.out.println("Fallen Kingdoms Plugin initialised");
     }
 

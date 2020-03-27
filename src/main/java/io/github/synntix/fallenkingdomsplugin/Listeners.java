@@ -103,6 +103,8 @@ public class Listeners implements Listener {
             } else {
                 e.setBuildable(true);
             }
+            //TODO : add blocks that can be built everywhere
+            
             //TODO : only op can build before game starts
         }
 
