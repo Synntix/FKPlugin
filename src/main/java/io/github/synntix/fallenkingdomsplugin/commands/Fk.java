@@ -110,6 +110,43 @@ public class Fk implements CommandExecutor {
                                 player.sendMessage(ChatColor.RED + "ERROR : Color not found.");
                             }
                         }
+                        // ----------------- /fk teams delete ----------------
+                    } else if (args[1].equalsIgnoreCase("delete")) {
+                        if (args.length != 3) {
+                            player.sendMessage(ChatColor.RED + "ERROR : Wrong input.");
+                            player.sendMessage("To delete a team please do " + ChatColor.RED + "/fk teams delete <COLOR>");
+                        } else {
+                            //
+                            boolean teamBusy = false;
+
+                            try {
+                                FKTeam selectedTeam = FKTeam.getByColorName(args[2]);
+
+                                if (selectedTeam.isEnabled()) { //If the team was created
+
+                                    // teamBusy = true if a player is in this team
+                                    for (FKPlayer fkPlayer : FallenKingdomsPlugin.getFkPlayerList()) {
+                                        if (fkPlayer.getTeam() == selectedTeam) {
+                                            teamBusy = true;
+                                        }
+                                    }
+                                    if (teamBusy) {
+                                        player.sendMessage(ChatColor.RED + "ERROR : You cannot delete a team if a player is in it.");
+                                    } else {
+                                        FKTeam.getByColorName(args[2]).setEnabled(false);
+                                        player.sendMessage("The " + selectedTeam.getColor() + selectedTeam.getName()
+                                                + ChatColor.WHITE + " team successfully deleted.");
+                                    }
+                                } else {
+                                    player.sendMessage(ChatColor.RED + "ERROR : The team was not created.");
+                                }
+
+                            } catch (IllegalArgumentException e) {
+                                player.sendMessage(ChatColor.RED + "ERROR : Color not found.");
+                            }
+
+                        }
+
                         // ----------------- /fk teams list ----------------
                     } else if (args[1].equalsIgnoreCase("list")) {
                         if (args.length != 2) {
@@ -158,6 +195,37 @@ public class Fk implements CommandExecutor {
                                         + " team was not created, please create it.");
                             }
 
+                        }
+                        // ----------------- /fk teams remove ----------------
+                    } else if (args[1].equalsIgnoreCase("remove")) {
+                        //If the number of args doesn't fit
+                        if (args.length != 4) {
+                            player.sendMessage(ChatColor.RED + "ERROR : Wrong input.");
+                            player.sendMessage("To remove a player from a team please do " + ChatColor.RED
+                                    + "/fk teams remove <PSEUDO> <COLOR>");
+                        } else { //If the number of args does fit
+
+                            try {
+                                FKPlayer targetedPlayer = FallenKingdomsPlugin.getFkPlayers().get(Bukkit.getPlayerExact(args[2]));
+                                FKTeam targetedTeam = FKTeam.getByColorName(args[3]);
+                                if (targetedPlayer.getTeam() == targetedTeam) { //If the player is in the team
+
+                                    targetedPlayer.setTeam(FKTeam.NOTEAM);
+                                    player.sendMessage(args[2] + " successfully removed from the "
+                                            + targetedTeam.getColor() + targetedTeam.getName()
+                                            + ChatColor.WHITE + " team." );
+
+                                } else {
+                                    player.sendMessage(ChatColor.RED + "ERROR : The player isn't in the "
+                                            + targetedTeam.getName() + " team" + ChatColor.WHITE + ".");
+                                }
+
+                            } catch (java.lang.NullPointerException e) {
+                                // If the pseudo is not correct
+                                player.sendMessage(ChatColor.RED + "ERROR : player not found.");
+                            } catch (IllegalArgumentException e) {
+                                player.sendMessage(ChatColor.RED + "ERROR : team not found.");
+                            }
                         }
                     }
                 }
