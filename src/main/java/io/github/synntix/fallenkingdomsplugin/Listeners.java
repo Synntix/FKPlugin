@@ -21,6 +21,7 @@ public class Listeners implements Listener {
             e.setJoinMessage(e.getPlayer().getDisplayName() + " joined the game.");
             e.getPlayer().setGameMode(GameMode.ADVENTURE);
         } else { // If the game has already started
+            //TODO : Check why there are exceptions when a player is a spec
             e.setJoinMessage("");
             e.getPlayer().setGameMode(GameMode.SPECTATOR);
             e.getPlayer().sendMessage("Too late, the game has already started! Now you can spectate.");
