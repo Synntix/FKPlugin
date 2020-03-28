@@ -3,6 +3,7 @@ package io.github.synntix.fallenkingdomsplugin;
 import io.github.synntix.fallenkingdomsplugin.scoreboard.FKTeam;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -95,15 +96,21 @@ public class Listeners implements Listener {
     public void onBlockBuild(BlockCanBuildEvent e) {
         FKPlayer player = FallenKingdomsPlugin.getFkPlayers().get(e.getPlayer());
 
+        boolean isAllowedBlock = false;
+        for (Material block : FallenKingdomsPlugin.getAllowedBlocks()) {
+            if (e.getMaterial() == block) {
+                isAllowedBlock = true;
+            }
+        }
+
         if (FallenKingdomsPlugin.isGameStarted()) {
-            // If the block is not in his base
-            if (!player.getTeam().getBase().isInBase(e.getBlock().getLocation())) {
+                // If the block is not in his base and isn't allowed
+            if (!isAllowedBlock && !player.getTeam().getBase().isInBase(e.getBlock().getLocation())) {
                 e.setBuildable(false);
                 e.getPlayer().sendMessage(ChatColor.RED + "You cannot build outside of your base!");
             } else {
                 e.setBuildable(true);
             }
-            //TODO : add blocks that can be built everywhere
             
             //TODO : only op can build before game starts
         }

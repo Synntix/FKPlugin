@@ -3,6 +3,7 @@ package io.github.synntix.fallenkingdomsplugin;
 import io.github.synntix.fallenkingdomsplugin.commands.Fk;
 import io.github.synntix.fallenkingdomsplugin.scoreboard.FKScoreboard;
 import io.github.synntix.fallenkingdomsplugin.scoreboard.FKTeam;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -16,6 +17,7 @@ public final class FallenKingdomsPlugin extends JavaPlugin {
     private static ArrayList<FKPlayer> fkPlayerList;
     private static HashMap<Player, FKPlayer> fkPlayers;
     private static HashMap<FKTeam, ArrayList<FKBase>> enemyBases;
+    private static ArrayList<Material> allowedBlocks;
     private static FKScoreboard scoreboard;
 
     @Override
@@ -29,6 +31,7 @@ public final class FallenKingdomsPlugin extends JavaPlugin {
         scoreboard = new FKScoreboard();
         fkPlayers = new HashMap<>();
         enemyBases = new HashMap<>();
+        allowedBlocks = new ArrayList<>();
         // TODO : Initialize scoreboard
 
         //Commands and Events setup
@@ -62,6 +65,10 @@ public final class FallenKingdomsPlugin extends JavaPlugin {
 
     public static HashMap<FKTeam, ArrayList<FKBase>> getEnemyBases() {
         return enemyBases;
+    }
+
+    public static ArrayList<Material> getAllowedBlocks() {
+        return allowedBlocks;
     }
 
     public static FKScoreboard getScoreboard() {

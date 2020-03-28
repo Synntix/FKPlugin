@@ -6,6 +6,7 @@ import io.github.synntix.fallenkingdomsplugin.FallenKingdomsPlugin;
 import io.github.synntix.fallenkingdomsplugin.scoreboard.FKTeam;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -41,6 +42,8 @@ public class Fk implements CommandExecutor {
                         }
                         FallenKingdomsPlugin.getEnemyBases().put(fkTeamKey,enemyBasesPerKey);
                     }
+
+                    FallenKingdomsPlugin.getAllowedBlocks().add(Material.TNT);
 
                     //TODO : prevent from launching if a created team doesn't have a base
                     // (otherwise isInThatBase check excepts)
