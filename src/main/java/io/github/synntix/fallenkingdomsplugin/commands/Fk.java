@@ -177,9 +177,9 @@ public class Fk implements CommandExecutor {
                                     + "/fk teams add <PSEUDO> <COLOR>");
 
                         } else { //If the number of args does fit
-                            if (FKTeam.getByColorName(args[3]).isEnabled()) { // If the team has been created before
 
-                                try {
+                            try {
+                                if (FKTeam.getByColorName(args[3]).isEnabled()) { // If the team has been created before
                                     // If the pseudo is correct
                                     FallenKingdomsPlugin.getFkPlayers().get(Bukkit.getPlayerExact(args[2]))
                                             .setTeam(FKTeam.getByColorName(args[3]));
@@ -187,15 +187,17 @@ public class Fk implements CommandExecutor {
                                             + FKTeam.getByColorName(args[3]).getColor()
                                             + FKTeam.getByColorName(args[3]).getName()
                                             + ChatColor.WHITE + " team.");
-                                } catch (java.lang.NullPointerException e) {
-                                    // If the pseudo is not correct
-                                    player.sendMessage(ChatColor.RED + "ERROR : player not found.");
+                                } else {
+                                    player.sendMessage(ChatColor.RED + "ERROR : The "
+                                            + FKTeam.getByColorName(args[3]).getName()
+                                            + " team was not created, please create it.");
                                 }
-
-                            } else {
-                                player.sendMessage(ChatColor.RED + "ERROR : The "
-                                        + FKTeam.getByColorName(args[3]).getName()
-                                        + " team was not created, please create it.");
+                            } catch (java.lang.NullPointerException e) {
+                                // If the pseudo is not correct
+                                player.sendMessage(ChatColor.RED + "ERROR : player not found.");
+                                // If the color name is not correct
+                            } catch (IllegalArgumentException e) {
+                                player.sendMessage(ChatColor.RED + "ERROR : team not found.");
                             }
 
                         }
