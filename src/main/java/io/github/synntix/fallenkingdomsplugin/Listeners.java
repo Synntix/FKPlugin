@@ -121,16 +121,10 @@ public class Listeners implements Listener {
         FKPlayer player = FallenKingdomsPlugin.getFkPlayers().get(e.getPlayer());
 
         if (FallenKingdomsPlugin.isGameStarted()) {
-            ArrayList<FKBase> enemyBases = new ArrayList<>();
-            for (FKTeam fkTeam : FKTeam.values()) {
-                if (fkTeam.isEnabled() && fkTeam != player.getTeam()) {
-                    enemyBases.add(fkTeam.getBase());
-                }
-            }
-            for (FKBase enemyBase : enemyBases) {
+            for (FKBase enemyBase : FallenKingdomsPlugin.getEnemyBases().get(player.getTeam())) {
                 if (enemyBase.isInBase(e.getBlock().getLocation())) {
                     e.setCancelled(true);
-                    e.getPlayer().sendMessage("You can't break a block in an enemy base");
+                    e.getPlayer().sendMessage(ChatColor.RED + "You can't break a block in an enemy base");
                 }
             }
             //TODO : only op can break blocks before game starts
