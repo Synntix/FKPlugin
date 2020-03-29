@@ -63,13 +63,14 @@ public class Listeners implements Listener {
 
     @EventHandler
     public void onPlayerMovement(PlayerMoveEvent e) {
-        if (FallenKingdomsPlugin.isGameStarted()) {
+        FKPlayer player = FallenKingdomsPlugin.getFkPlayers().get(e.getPlayer());
+
+        if (FallenKingdomsPlugin.isGameStarted() && player.isInGame()) {
 
             if (FallenKingdomsPlugin.isGamePaused()) {
                 e.setCancelled(true);
                 e.getPlayer().sendMessage(ChatColor.RED + "You cannot move while the game is paused!");
             }
-            FKPlayer player = FallenKingdomsPlugin.getFkPlayers().get(e.getPlayer());
 
             // If the player enters his base
             if (player.getTeam() != FKTeam.NOTEAM && !player.isInOwnBase() && player.getTeam().getBase().isInBase(e.getPlayer().getLocation())) {

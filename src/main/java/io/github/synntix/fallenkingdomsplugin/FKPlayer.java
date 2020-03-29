@@ -11,6 +11,7 @@ public class FKPlayer {
     private FKTeam team;
     private boolean inOwnBase;
     private boolean inEnemyBase;
+    private boolean inGame;
     private HashMap<FKBase, Boolean> inThatBase;
 
     public FKPlayer(Player player) {
@@ -18,6 +19,7 @@ public class FKPlayer {
         this.team = FKTeam.NOTEAM;
         this.inOwnBase = false;
         this.inEnemyBase = false;
+        this.inGame = true;
         this.inThatBase = new HashMap<>();
     }
 
@@ -37,6 +39,10 @@ public class FKPlayer {
         return inEnemyBase;
     }
 
+    public boolean isInGame() {
+        return inGame;
+    }
+
     public HashMap<FKBase, Boolean> isInThatBase() {
         return inThatBase;
     }
@@ -47,6 +53,10 @@ public class FKPlayer {
 
     public void setInEnemyBase(boolean inEnemyBase) {
         this.inEnemyBase = inEnemyBase;
+    }
+
+    public void setInGame(boolean inGame) {
+        this.inGame = inGame;
     }
 
     public void setTeam(FKTeam team) throws IllegalArgumentException {
