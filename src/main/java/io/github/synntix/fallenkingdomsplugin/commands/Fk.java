@@ -70,12 +70,17 @@ public class Fk implements CommandExecutor {
                 }
                 // ===================== /FK PAUSE =====================
             } else if (args[0].equalsIgnoreCase("pause")) {
-                if (!FallenKingdomsPlugin.isGamePaused()) {
-                    FallenKingdomsPlugin.setGamePaused(true);
-                    player.sendMessage("The game is now paused.");
+                if (FallenKingdomsPlugin.isGameStarted()) {
+                    if (!FallenKingdomsPlugin.isGamePaused()) {
+                        FallenKingdomsPlugin.setGamePaused(true);
+                        player.sendMessage("The game is now paused.");
+                    } else {
+                        player.sendMessage(ChatColor.RED + "ERROR : The game is already on pause.");
+                    }
                 } else {
-                    player.sendMessage(ChatColor.RED + "ERROR : The game is already on pause.");
+                    player.sendMessage(ChatColor.RED + "ERROR : The game must be started to be paused.");
                 }
+
 
             } else if (args[0].equalsIgnoreCase("resume")) {
                 if (FallenKingdomsPlugin.isGamePaused()) {
