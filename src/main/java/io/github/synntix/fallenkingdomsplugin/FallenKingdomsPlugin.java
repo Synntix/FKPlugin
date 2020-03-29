@@ -1,6 +1,7 @@
 package io.github.synntix.fallenkingdomsplugin;
 
 import io.github.synntix.fallenkingdomsplugin.commands.Fk;
+import io.github.synntix.fallenkingdomsplugin.commands.FkTabCompletion;
 import io.github.synntix.fallenkingdomsplugin.scoreboard.FKScoreboard;
 import io.github.synntix.fallenkingdomsplugin.scoreboard.FKTeam;
 import org.bukkit.Material;
@@ -37,6 +38,7 @@ public final class FallenKingdomsPlugin extends JavaPlugin {
         //Commands and Events setup
         getServer().getPluginManager().registerEvents(new Listeners(),this);
         getCommand("fk").setExecutor(new Fk());
+        getCommand("fk").setTabCompleter(new FkTabCompletion());
         //TODO : Create scoreboard
         System.out.println("Fallen Kingdoms Plugin initialised");
     }
