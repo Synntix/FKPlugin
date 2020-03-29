@@ -166,7 +166,7 @@ public class Fk implements CommandExecutor {
                         } else {
                             player.sendMessage("These are the created teams :");
                             for (FKTeam fkTeam : FKTeam.values()) {
-                                if (fkTeam.isEnabled()) {
+                                if (fkTeam.isEnabled() && fkTeam != FKTeam.NOTEAM) {
                                     player.sendMessage("Team "
                                             + fkTeam.getColor()
                                             + fkTeam.name());
