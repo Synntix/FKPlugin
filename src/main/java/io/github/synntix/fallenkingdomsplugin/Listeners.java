@@ -17,20 +17,33 @@ public class Listeners implements Listener {
     @EventHandler
     // If the game is not started
     public void onPlayerJoin(PlayerJoinEvent e) {
-        if (!FallenKingdomsPlugin.isGameStarted()) {
-            e.setJoinMessage(e.getPlayer().getDisplayName() + " joined the game.");
-            e.getPlayer().setGameMode(GameMode.ADVENTURE);
-        } else { // If the game has already started
-            //TODO : Check why there are exceptions when a player is a spec
-            e.setJoinMessage("");
-            e.getPlayer().setGameMode(GameMode.SPECTATOR);
-            e.getPlayer().sendMessage("Too late, the game has already started! Now you can spectate.");
+
+        //If the player leaved in game (is in fkLeavers)
+        if (FallenKingdomsPlugin.getFkLeavers().get(e.getPlayer().getName()) != null) {
+            //Restore his fkPlayer
+            FallenKingdomsPlugin.getFkPlayers().put(e.getPlayer(),
+                    FallenKingdomsPlugin.getFkLeavers().get(e.getPlayer().getName()));
+            //And delete him from fkLeavers
+            FallenKingdomsPlugin.getFkLeavers().remove(e.getPlayer().getName());
+
+        } else {
+            //Add the new player to the fkPlayers HashMap
+            FallenKingdomsPlugin.getFkPlayers().put(e.getPlayer(), new FKPlayer(e.getPlayer()));
+            //Add the new player to the fkPlayerList
+            FallenKingdomsPlugin.getFkPlayerList().add(FallenKingdomsPlugin.getFkPlayers().get(e.getPlayer()));
+
+
+            if (!FallenKingdomsPlugin.isGameStarted()) {
+                e.setJoinMessage(e.getPlayer().getDisplayName() + " joined the game.");
+                e.getPlayer().setGameMode(GameMode.ADVENTURE);
+            } else { // If the game has already started
+                FallenKingdomsPlugin.getFkPlayers().get(e.getPlayer()).setInGame(false);
+                e.setJoinMessage("");
+                e.getPlayer().setGameMode(GameMode.SPECTATOR);
+                e.getPlayer().sendMessage("Too late, the game has already started! Now you can spectate.");
+            }
         }
 
-        //Add the new player to the fkPlayers HashMap
-        FallenKingdomsPlugin.getFkPlayers().put(e.getPlayer(), new FKPlayer(e.getPlayer()));
-        //Add the new player to the fkPlayerList
-        FallenKingdomsPlugin.getFkPlayerList().add(FallenKingdomsPlugin.getFkPlayers().get(e.getPlayer()));
     }
 
     @EventHandler
@@ -42,6 +55,8 @@ public class Listeners implements Listener {
         } else { // If the game has already started
             e.setQuitMessage(e.getPlayer().getDisplayName() + " leaved the game. Do /fk pause to suspend the game.");
             FallenKingdomsPlugin.getFkPlayerList().remove(FallenKingdomsPlugin.getFkPlayers().get(e.getPlayer()));
+            FallenKingdomsPlugin.getFkLeavers().put(e.getPlayer().getName(),FallenKingdomsPlugin.getFkPlayers().get(e.getPlayer()));
+            FallenKingdomsPlugin.getFkPlayers().remove(e.getPlayer());
         }
 
     }

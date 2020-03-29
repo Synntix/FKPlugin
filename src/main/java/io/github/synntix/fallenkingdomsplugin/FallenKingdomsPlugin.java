@@ -18,6 +18,7 @@ public final class FallenKingdomsPlugin extends JavaPlugin {
     private static ArrayList<FKPlayer> fkPlayerList;
     private static HashMap<Player, FKPlayer> fkPlayers;
     private static HashMap<FKTeam, ArrayList<FKBase>> enemyBases;
+    private static HashMap<String, FKPlayer> fkLeavers;
     private static ArrayList<Material> allowedBlocks;
     private static FKScoreboard scoreboard;
 
@@ -32,6 +33,7 @@ public final class FallenKingdomsPlugin extends JavaPlugin {
         scoreboard = new FKScoreboard();
         fkPlayers = new HashMap<>();
         enemyBases = new HashMap<>();
+        fkLeavers = new HashMap<>();
         allowedBlocks = new ArrayList<>();
         // TODO : Initialize scoreboard
 
@@ -67,6 +69,10 @@ public final class FallenKingdomsPlugin extends JavaPlugin {
 
     public static HashMap<FKTeam, ArrayList<FKBase>> getEnemyBases() {
         return enemyBases;
+    }
+
+    public static HashMap<String, FKPlayer> getFkLeavers() {
+        return fkLeavers;
     }
 
     public static ArrayList<Material> getAllowedBlocks() {
