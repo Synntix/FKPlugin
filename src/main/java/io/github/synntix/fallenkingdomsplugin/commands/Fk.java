@@ -256,17 +256,22 @@ public class Fk implements CommandExecutor {
                             player.sendMessage(ChatColor.RED + "ERROR : Wrong input.");
                             player.sendMessage("To set a base please do " + ChatColor.RED + "/fk base set <COLOR> <RADIUS>");
                         } else {
-                            if (!FKTeam.getByColorName(args[2]).isEnabled()) {
-                                player.sendMessage(ChatColor.RED + "ERROR : The "
-                                        + FKTeam.getByColorName(args[3]).getName()
-                                        + " team was not created, please create it.");
-                            } else {
-                                FKTeam.getByColorName(args[2]).setBase(new FKBase(FKTeam.getByColorName(args[2]),
-                                        player.getLocation(),
-                                        Double.parseDouble(args[3])));
-                                player.sendMessage("The " + FKTeam.getByColorName(args[2]).getColor()
-                                        + FKTeam.getByColorName(args[2]).getName() + ChatColor.WHITE + " base have been created.");
+                            try {
+                                if (!FKTeam.getByColorName(args[2]).isEnabled()) {
+                                    player.sendMessage(ChatColor.RED + "ERROR : The "
+                                            + FKTeam.getByColorName(args[3]).getName()
+                                            + " team was not created, please create it.");
+                                } else {
+                                    FKTeam.getByColorName(args[2]).setBase(new FKBase(FKTeam.getByColorName(args[2]),
+                                            player.getLocation(),
+                                            Double.parseDouble(args[3])));
+                                    player.sendMessage("The " + FKTeam.getByColorName(args[2]).getColor()
+                                            + FKTeam.getByColorName(args[2]).getName() + ChatColor.WHITE + " base have been created.");
+                                }
+                            } catch (IllegalArgumentException e) {
+                                player.sendMessage(ChatColor.RED + "ERROR : team not found.");
                             }
+
                         }
                     } // TODO : /fk base delete
                 }
