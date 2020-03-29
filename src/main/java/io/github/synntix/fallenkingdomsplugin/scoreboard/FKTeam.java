@@ -14,13 +14,13 @@ public enum FKTeam {
     YELLOW("Yellow", ChatColor.YELLOW, 4,false),
     GREEN("Green", ChatColor.GREEN, 5,false),
     PINK("Pink", ChatColor.LIGHT_PURPLE, 6,false),
-    DARK_GRAY("Dark Gray", ChatColor.DARK_GRAY, 7,false),
+    DARK_GRAY("Dark-Gray", ChatColor.DARK_GRAY, 7,false),
     GRAY("Gray", ChatColor.GRAY, 8,false),
     AQUA("Aqua", ChatColor.AQUA, 9,false),
     GOLD("Gold", ChatColor.GOLD, 10,false),
-    DARK_BLUE("Dark Blue", ChatColor.DARK_BLUE, 11,false),
-    DARK_AQUA("Dark aqua", ChatColor.DARK_AQUA, 12,false),
-    DARK_GREEN("Dark Green", ChatColor.DARK_GREEN, 13,false),
+    DARK_BLUE("Dark-Blue", ChatColor.DARK_BLUE, 11,false),
+    DARK_AQUA("Dark-aqua", ChatColor.DARK_AQUA, 12,false),
+    DARK_GREEN("Dark-Green", ChatColor.DARK_GREEN, 13,false),
     RED("Red", ChatColor.DARK_RED, 14,false),
     BLACK("Black", ChatColor.BLACK, 15,false);
 
