@@ -126,8 +126,11 @@ public class Listeners implements Listener {
             } else {
                 e.setBuildable(true);
             }
-            
-            //TODO : only op can build before game starts
+
+        } else {
+            if (!e.getPlayer().isOp()) {
+                e.setBuildable(false);
+            }
         }
 
     }
@@ -143,7 +146,11 @@ public class Listeners implements Listener {
                     e.getPlayer().sendMessage(ChatColor.RED + "You can't break a block in an enemy base");
                 }
             }
-            //TODO : only op can break blocks before game starts
+
+        } else {
+            if (!e.getPlayer().isOp()) {
+                e.setCancelled(true);
+            }
         }
 
     }
