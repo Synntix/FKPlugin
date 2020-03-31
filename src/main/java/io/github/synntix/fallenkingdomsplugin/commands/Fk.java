@@ -99,11 +99,14 @@ public class Fk implements CommandExecutor {
                 }
 
                 // ===================== /FK TEAMS =====================
-                // TODO : Prevent from editing teams in game
             } else if (args[0].equalsIgnoreCase("teams")) {
                 // ----------------- /fk teams ----------------
                 if (args.length == 1) {
                     player.sendMessage("For more information do " + ChatColor.RED + "/fk teams help");
+
+                } else if (FallenKingdomsPlugin.isGameStarted()) {
+                    player.sendMessage(ChatColor.RED + "Error you cannot edit teams while the game is started.");
+
                 } else {
                     // ----------------- /fk teams help ----------------
                     if (args[1].equalsIgnoreCase("help")) {
@@ -262,6 +265,8 @@ public class Fk implements CommandExecutor {
                 // ----------------- /fk base ----------------
                 if (args.length == 1) {
                     player.sendMessage("For more information do " + ChatColor.RED + "/fk base help");
+                } else if (FallenKingdomsPlugin.isGameStarted()) {
+                    player.sendMessage(ChatColor.RED + "Error you cannot edit bases while the game is started.");
                 } else {
                     // ----------------- /fk base help ----------------
                     if (args[1].equalsIgnoreCase("help")) {
