@@ -71,10 +71,8 @@ public class FkTabCompletion implements TabCompleter {
                     || args[1].equalsIgnoreCase("unset"))) {
 
                 //Add Every team name except "no team" and those already enabled
-                for (FKTeam fkTeam : FKTeam.values()) {
-                    if (fkTeam != FKTeam.NOTEAM && fkTeam.isEnabled()) {
-                        commands.add(fkTeam.getName());
-                    }
+                for (FKTeam fkTeam : FKTeam.getTeamsEnabled()) {
+                    commands.add(fkTeam.getName());
                 }
 
             }
@@ -84,11 +82,9 @@ public class FkTabCompletion implements TabCompleter {
         } else if (args.length == 4) {
 
             if (args[0].equalsIgnoreCase("teams") && args[1].equalsIgnoreCase("add")) {
-                //Add Every team name except "no team" and those already enabled
-                for (FKTeam fkTeam : FKTeam.values()) {
-                    if (fkTeam != FKTeam.NOTEAM && fkTeam.isEnabled()) {
-                        commands.add(fkTeam.getName());
-                    }
+                //Add Every enabled team
+                for (FKTeam fkTeam : FKTeam.getTeamsEnabled()) {
+                    commands.add(fkTeam.getName());
                 }
             }
 
