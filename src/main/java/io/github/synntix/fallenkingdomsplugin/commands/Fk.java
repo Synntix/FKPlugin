@@ -291,7 +291,34 @@ public class Fk implements CommandExecutor {
                             }
 
                         }
-                    } // TODO : /fk base delete
+                    } else if (args[1].equalsIgnoreCase("unset")) {
+                        if (args.length != 3) {
+                            player.sendMessage(ChatColor.RED + "ERROR : Wrong input.");
+                            player.sendMessage("To set a base please do " + ChatColor.RED + "/fk base set <COLOR> <RADIUS>");
+                        } else {
+                            try {
+                                FKTeam targetedTeam = FKTeam.getByColorName(args[2]);
+
+                                if (targetedTeam.isEnabled()) {
+                                    if (targetedTeam.getBase() == null) {
+                                        player.sendMessage(ChatColor.RED + "ERROR : The " + targetedTeam.getName()
+                                                + " base is not set.");
+                                    } else {
+                                        targetedTeam.setBase(null);
+                                        player.sendMessage("The " + targetedTeam.getColor()
+                                                + targetedTeam.getName() + ChatColor.WHITE + " base have been unset.");
+                                    }
+                                } else {
+                                    player.sendMessage(ChatColor.RED + "ERROR : The " + targetedTeam.getName()
+                                            + " team was not created.");
+                                }
+
+                            } catch (IllegalArgumentException e) {
+                                player.sendMessage(ChatColor.RED + "ERROR : team not found.");
+                            }
+
+                        }
+                    }
                 }
 
             } else {
