@@ -54,9 +54,6 @@ public class Fk implements CommandExecutor {
 
                         FallenKingdomsPlugin.getAllowedBlocks().add(Material.TNT);
 
-                        //TODO : prevent from launching if a created team doesn't have a base
-                        // (otherwise isInThatBase check excepts)
-
                         for (FKPlayer fkPlayer : FallenKingdomsPlugin.getFkPlayerList()) {
                             for (FKBase fkEnemyBase : FallenKingdomsPlugin.getEnemyBases().get(fkPlayer.getTeam())) {
                                 fkPlayer.isInThatBase().put(fkEnemyBase,false);
@@ -102,6 +99,7 @@ public class Fk implements CommandExecutor {
                 }
 
                 // ===================== /FK TEAMS =====================
+                // TODO : Prevent from editing teams in game
             } else if (args[0].equalsIgnoreCase("teams")) {
                 // ----------------- /fk teams ----------------
                 if (args.length == 1) {
