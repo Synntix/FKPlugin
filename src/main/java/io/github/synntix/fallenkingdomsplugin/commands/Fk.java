@@ -32,30 +32,41 @@ public class Fk implements CommandExecutor {
             } else if (args[0].equalsIgnoreCase("start")) {
                 if (!FallenKingdomsPlugin.isGameStarted()) {
 
-                    // Creating an array for enemy bases
-                    for (FKTeam fkTeamKey : FKTeam.values()) {
-                        ArrayList<FKBase> enemyBasesPerKey = new ArrayList<>();
-                        for (FKTeam fkTeam : FKTeam.values()) {
-                            if (fkTeam.isEnabled() && fkTeam != fkTeamKey && fkTeam != FKTeam.NOTEAM) {
-                                enemyBasesPerKey.add(fkTeam.getBase());
+                    if (FKTeam.isATeamEmpty()) {
+                        player.sendMessage(ChatColor.RED + "ERROR : A created team is empty.");
+                        player.sendMessage(ChatColor.RED + "Please add a player to this team or delete it.");
+
+                    } else if (FKTeam.aTeamHaveNoBase()) {
+                        player.sendMessage(ChatColor.RED + "ERROR : A created team have no base set.");
+                        player.sendMessage(ChatColor.RED + "Please set a base for this team or delete it.");
+                    } else {
+
+                        // Creating an array for enemy bases
+                        for (FKTeam fkTeamKey : FKTeam.values()) {
+                            ArrayList<FKBase> enemyBasesPerKey = new ArrayList<>();
+                            for (FKTeam fkTeam : FKTeam.values()) {
+                                if (fkTeam.isEnabled() && fkTeam != fkTeamKey && fkTeam != FKTeam.NOTEAM) {
+                                    enemyBasesPerKey.add(fkTeam.getBase());
+                                }
+                            }
+                            FallenKingdomsPlugin.getEnemyBases().put(fkTeamKey,enemyBasesPerKey);
+                        }
+
+                        FallenKingdomsPlugin.getAllowedBlocks().add(Material.TNT);
+
+                        //TODO : prevent from launching if a created team doesn't have a base
+                        // (otherwise isInThatBase check excepts)
+
+                        for (FKPlayer fkPlayer : FallenKingdomsPlugin.getFkPlayerList()) {
+                            for (FKBase fkEnemyBase : FallenKingdomsPlugin.getEnemyBases().get(fkPlayer.getTeam())) {
+                                fkPlayer.isInThatBase().put(fkEnemyBase,false);
                             }
                         }
-                        FallenKingdomsPlugin.getEnemyBases().put(fkTeamKey,enemyBasesPerKey);
+
+                        FallenKingdomsPlugin.setGameStarted(true);
+                        player.sendMessage("The game is now started.");
                     }
 
-                    FallenKingdomsPlugin.getAllowedBlocks().add(Material.TNT);
-
-                    //TODO : prevent from launching if a created team doesn't have a base
-                    // (otherwise isInThatBase check excepts)
-
-                    for (FKPlayer fkPlayer : FallenKingdomsPlugin.getFkPlayerList()) {
-                        for (FKBase fkEnemyBase : FallenKingdomsPlugin.getEnemyBases().get(fkPlayer.getTeam())) {
-                            fkPlayer.isInThatBase().put(fkEnemyBase,false);
-                        }
-                    }
-
-                    FallenKingdomsPlugin.setGameStarted(true);
-                    player.sendMessage("The game is now started.");
                 } else {
                     player.sendMessage(ChatColor.RED + "ERROR : The game is already started.");
                 }

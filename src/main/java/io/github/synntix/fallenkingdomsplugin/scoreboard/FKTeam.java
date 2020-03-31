@@ -1,8 +1,10 @@
 package io.github.synntix.fallenkingdomsplugin.scoreboard;
 
 import io.github.synntix.fallenkingdomsplugin.FKBase;
+import io.github.synntix.fallenkingdomsplugin.FKPlayer;
 import org.bukkit.ChatColor;
-import org.bukkit.scoreboard.Team;
+
+import java.util.ArrayList;
 
 public enum FKTeam {
 
@@ -29,6 +31,7 @@ public enum FKTeam {
     private int woolID;
     private boolean enabled;
     private FKBase base;
+    private ArrayList<FKPlayer> players;
 
 
     FKTeam(String name, ChatColor color, int woolID, boolean enabled) {
@@ -37,6 +40,7 @@ public enum FKTeam {
         this.woolID = woolID;
         this.enabled = enabled;
         this.base = null;
+        this.players = new ArrayList<>();
     }
 
     public void setName(String name) {
@@ -55,6 +59,14 @@ public enum FKTeam {
         this.base = base;
     }
 
+    public void addPlayer(FKPlayer fkPlayer) {
+        this.players.add(fkPlayer);
+    }
+
+    public void removePlayer(FKPlayer fkPlayer) {
+        this.players.remove(fkPlayer);
+    }
+
     public String getName() {
         return name;
     }
@@ -65,6 +77,10 @@ public enum FKTeam {
 
     public int getWoolID() {
         return woolID;
+    }
+
+    public ArrayList<FKPlayer> getPlayers() {
+        return players;
     }
 
     public boolean isEnabled() {
@@ -118,4 +134,33 @@ public enum FKTeam {
         }
         throw new IllegalArgumentException();
     }
+
+    public static ArrayList<FKTeam> getTeamsEnabled() {
+        ArrayList<FKTeam> teamsEnabled = new ArrayList<>();
+        for (FKTeam fkTeam : FKTeam.values()) {
+            if (fkTeam != FKTeam.NOTEAM && fkTeam.isEnabled()) {
+                teamsEnabled.add(fkTeam);
+            }
+        }
+        return teamsEnabled;
+    }
+
+    public static boolean aTeamHaveNoBase() {
+        for (FKTeam fkTeam : FKTeam.getTeamsEnabled()) {
+            if (fkTeam.getBase() == null) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isATeamEmpty() {
+        for (FKTeam fkTeam : FKTeam.getTeamsEnabled()) {
+            if (fkTeam.getPlayers().size() == 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
