@@ -195,17 +195,24 @@ public class Fk implements CommandExecutor {
                         } else { //If the number of args does fit
 
                             try {
+                                FKPlayer targetedPlayer = FallenKingdomsPlugin.getFkPlayers().get(Bukkit.getPlayerExact(args[2]));
+                                FKTeam targetedTeam = FKTeam.getByColorName(args[3]);
+
                                 if (FKTeam.getByColorName(args[3]).isEnabled()) { // If the team has been created before
                                     // If the pseudo is correct
-                                    FallenKingdomsPlugin.getFkPlayers().get(Bukkit.getPlayerExact(args[2]))
-                                            .setTeam(FKTeam.getByColorName(args[3]));
+
+                                    //Set the team to the fkPlayer
+                                    targetedPlayer.setTeam(targetedTeam);
+                                    //Add the player to the FKTeam
+                                    targetedTeam.addPlayer(targetedPlayer);
+
                                     player.sendMessage(args[2] + " has been added to the "
-                                            + FKTeam.getByColorName(args[3]).getColor()
-                                            + FKTeam.getByColorName(args[3]).getName()
+                                            + targetedTeam.getColor()
+                                            + targetedTeam.getName()
                                             + ChatColor.WHITE + " team.");
                                 } else {
                                     player.sendMessage(ChatColor.RED + "ERROR : The "
-                                            + FKTeam.getByColorName(args[3]).getName()
+                                            + targetedTeam.getName()
                                             + " team was not created, please create it.");
                                 }
                             } catch (java.lang.NullPointerException e) {
@@ -229,9 +236,11 @@ public class Fk implements CommandExecutor {
                             try {
                                 FKPlayer targetedPlayer = FallenKingdomsPlugin.getFkPlayers().get(Bukkit.getPlayerExact(args[2]));
                                 FKTeam targetedTeam = FKTeam.getByColorName(args[3]);
+
                                 if (targetedPlayer.getTeam() == targetedTeam) { //If the player is in the team
 
                                     targetedPlayer.setTeam(FKTeam.NOTEAM);
+                                    targetedTeam.removePlayer(targetedPlayer);
                                     player.sendMessage(args[2] + " successfully removed from the "
                                             + targetedTeam.getColor() + targetedTeam.getName()
                                             + ChatColor.WHITE + " team." );
