@@ -1,5 +1,6 @@
 package io.github.synntix.fallenkingdomsplugin.commands;
 
+import io.github.synntix.fallenkingdomsplugin.FallenKingdomsPlugin;
 import io.github.synntix.fallenkingdomsplugin.scoreboard.FKTeam;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -85,6 +86,12 @@ public class FkTabCompletion implements TabCompleter {
                 //Add Every enabled team
                 for (FKTeam fkTeam : FKTeam.getTeamsEnabled()) {
                     commands.add(fkTeam.getName());
+                }
+            } else if (args[0].equalsIgnoreCase("teams") && args[1].equalsIgnoreCase("remove")) {
+                //Add the name of the player's team
+                String teamsName = FallenKingdomsPlugin.getFkPlayers().get((Bukkit.getPlayerExact(args[2]))).getTeam().getName();
+                if (!teamsName.equalsIgnoreCase("No Team")) {
+                    commands.add(teamsName);
                 }
             }
 
