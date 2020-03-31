@@ -51,14 +51,13 @@ public class Listeners implements Listener {
         // If the game is not started
         if (!FallenKingdomsPlugin.isGameStarted()) {
             e.setQuitMessage(e.getPlayer().getDisplayName() + " leaved the game.");
-            FallenKingdomsPlugin.getFkPlayers().remove(e.getPlayer());
         } else { // If the game has already started
             e.setQuitMessage(e.getPlayer().getDisplayName() + " leaved the game. Do /fk pause to suspend the game.");
-            FallenKingdomsPlugin.getFkPlayerList().remove(FallenKingdomsPlugin.getFkPlayers().get(e.getPlayer()));
-            FallenKingdomsPlugin.getFkLeavers().put(e.getPlayer().getName(),FallenKingdomsPlugin.getFkPlayers().get(e.getPlayer()));
-            FallenKingdomsPlugin.getFkPlayers().remove(e.getPlayer());
         }
 
+        FallenKingdomsPlugin.getFkPlayerList().remove(FallenKingdomsPlugin.getFkPlayers().get(e.getPlayer()));
+        FallenKingdomsPlugin.getFkLeavers().put(e.getPlayer().getName(),FallenKingdomsPlugin.getFkPlayers().get(e.getPlayer()));
+        FallenKingdomsPlugin.getFkPlayers().remove(e.getPlayer());
     }
 
     @EventHandler
