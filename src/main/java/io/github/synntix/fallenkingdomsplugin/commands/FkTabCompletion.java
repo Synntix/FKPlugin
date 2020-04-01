@@ -20,7 +20,8 @@ public class FkTabCompletion implements TabCompleter {
 
         if (args.length == 1) {
             commands.add("help");
-            commands.add("teams");
+            commands.add("team");
+            commands.add("player");
             commands.add("base");
             commands.add("start");
             commands.add("stop");
@@ -30,23 +31,25 @@ public class FkTabCompletion implements TabCompleter {
             return commands;
 
         } else if (args.length == 2) {
-            if (args[0].equalsIgnoreCase("teams")) {
+            if (args[0].equalsIgnoreCase("team")) {
                 commands.add("help");
                 commands.add("create");
                 commands.add("delete");
-                commands.add("add");
-                commands.add("remove");
                 commands.add("list");
             } else if (args[0].equalsIgnoreCase("base")) {
                 commands.add("help");
                 commands.add("set");
                 commands.add("unset");
+            }else if (args[0].equalsIgnoreCase("player")) {
+                commands.add("help");
+                commands.add("add");
+                commands.add("remove");
             }
 
             return commands;
         } else if (args.length == 3) {
 
-            if (args[0].equalsIgnoreCase("teams")
+            if (args[0].equalsIgnoreCase("team")
                     && (args[1].equalsIgnoreCase("create")
                     || args[1].equalsIgnoreCase("delete"))) {
 
@@ -57,10 +60,10 @@ public class FkTabCompletion implements TabCompleter {
                     }
                 }
 
-            } else if (args[0].equalsIgnoreCase("teams")
-
+            } else if (args[0].equalsIgnoreCase("player")
                     && (args[1].equalsIgnoreCase("add")
                     || args[1].equalsIgnoreCase("remove"))) {
+
                 Player[] players = new Player[Bukkit.getServer().getOnlinePlayers().size()];
                 Bukkit.getServer().getOnlinePlayers().toArray(players);
                 for (Player player : players) {
@@ -82,12 +85,12 @@ public class FkTabCompletion implements TabCompleter {
 
         } else if (args.length == 4) {
 
-            if (args[0].equalsIgnoreCase("teams") && args[1].equalsIgnoreCase("add")) {
+            if (args[0].equalsIgnoreCase("player") && args[1].equalsIgnoreCase("add")) {
                 //Add Every enabled team
                 for (FKTeam fkTeam : FKTeam.getTeamsEnabled()) {
                     commands.add(fkTeam.getName());
                 }
-            } else if (args[0].equalsIgnoreCase("teams") && args[1].equalsIgnoreCase("remove")) {
+            } else if (args[0].equalsIgnoreCase("plyaer") && args[1].equalsIgnoreCase("remove")) {
                 //Add the name of the player's team
                 String teamsName = FallenKingdomsPlugin.getFkPlayers().get((Bukkit.getPlayerExact(args[2]))).getTeam().getName();
                 if (!teamsName.equalsIgnoreCase("No Team")) {

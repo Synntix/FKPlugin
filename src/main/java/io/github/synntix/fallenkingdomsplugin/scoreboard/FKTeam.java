@@ -87,6 +87,10 @@ public enum FKTeam {
         return enabled;
     }
 
+    public boolean isEmpty() {
+        return (this.players.size() == 0);
+    }
+
     public FKBase getBase() {
         return base;
     }
@@ -156,7 +160,7 @@ public enum FKTeam {
 
     public static boolean isATeamEmpty() {
         for (FKTeam fkTeam : FKTeam.getTeamsEnabled()) {
-            if (fkTeam.getPlayers().size() == 0) {
+            if (fkTeam.isEmpty()) {
                 return true;
             }
         }
